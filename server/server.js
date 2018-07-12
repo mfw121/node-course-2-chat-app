@@ -15,6 +15,17 @@ var server = http.createServer(app).listen(port, ()=>{
 var io = socketIO.listen(server);
 io.on('connection', (socket)=>{
     console.log('New user connected');
+    
+    socket.emit('newEmail', {
+        from: 'abc@abc.com',
+        text: 'Hey. What is going on?',
+        createAt: 123
+
+    });
+
+    socket.on('createEmail', (newEmail)=>{
+        console.log('createEmail', newEmail);
+    });
 
     socket.on('disconnect',()=>{
         console.log('User disconnected.');
